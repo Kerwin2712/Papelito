@@ -9,10 +9,6 @@ def words_view(contenedor_principal, navegacion):
           
 
 def words_content(contenedor_principal, palabras, jugador, jugadores, navegacion):
-    if jugador is None:
-        messagebox.showinfo("Exito", "Configuraciones guardadas con exito")
-        guardar_palabras(palabras)
-        return
     #Limpiar pantalla
     for widget in contenedor_principal.winfo_children():
         widget.destroy()
@@ -36,12 +32,12 @@ def words_content(contenedor_principal, palabras, jugador, jugadores, navegacion
     words_list_frame.pack(pady=5)
     ttk.Button(form_frame, text="Agregar", command=lambda: add_word(palabra, mis_palabras, palabras, words_list_frame)).grid(row=1, column=1, pady=5)
     #frame de botones
-    button_frame = ttk.Frame(words_frame)
+    button_frame = ttk.Frame(words_frame, padding=10)
     button_frame.pack(pady=5)
     if jugador != jugadores[-1]:
         ttk.Button(button_frame, text="Siguiente", command=lambda: words_content(contenedor_principal, palabras, jugadores[jugadores.index(jugador)+1], jugadores, navegacion)).pack(pady=5)
     else:
-        ttk.Button(button_frame, text="Jugar", command=lambda: navegacion("game")).pack(pady=5)
+        ttk.Button(button_frame, text="Jugar", command=lambda: guardar_palabras(palabras) or navegacion("game")).pack(pady=5)
     ttk.Button(button_frame, text="Volver", command=lambda: navegacion("dashboard")).pack(pady=5)  
 
 

@@ -1,4 +1,5 @@
 import csv
+from tkinter import messagebox
 
 def guardar_participantes(jugadores):
     try:
@@ -34,10 +35,9 @@ def palabras_get():
     palabras = []
     try:
         with open("palabras.txt", "r") as f:
-            reader = csv.reader(f)
-            next(reader)
+            reader = f.readlines()
             for row in reader:
-                palabras.append(row[0])
+                palabras.append(row.strip())
         return palabras
     except FileNotFoundError:
         return None
@@ -65,3 +65,44 @@ def get_config():
         return config
     except FileNotFoundError:
         return None
+
+def guardar_puntaje(jugador, puntaje):
+    puntajes = {}
+    try:
+        with open("jugadores.csv", "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            for row in reader:
+                if row[0] == jugador:
+                    puntajes[row[0]] = int(row[1]) + puntaje
+                else:
+                    puntajes[row[0]] = row[1]
+        with open("jugadores.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["jugador", "puntos"])
+            for jugador, puntaje in puntajes.items():
+                writer.writerow([jugador, puntaje])
+    except Exception as e:
+        messagebox.showerror("Error", "No se pudo guardar el archivo")
+
+def get_puntaje(jugador):
+    try:
+        with open("jugadores.csv", "r") as f:
+            reader = csv.reader(f)
+            next(reader)
+            for row in reader:
+                if row[0] == jugador:
+                    return row[1]
+    except Exception as e:
+        messagebox.showerror("Error", "No se pudo guardar el archivo")
+
+def reset_puntaje():
+    jugadores = players_get()
+    try:
+        with open("jugadores.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["jugador", "puntos"])
+            for jugador in jugadores:
+                writer.writerow([jugador, 0])
+    except Exception as e:
+        messagebox.showerror("Error", "No se pudo guardar el archivo")
