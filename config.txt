@@ -1,0 +1,4 @@
+cantidad_de_palabras=3
+tiempo_ronda_1=40
+tiempo_ronda_2=30
+tiempo_ronda_3=30
