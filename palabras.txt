@@ -1,4 +1,3 @@
-carro
 casa
-camion
-moto
+carro
+Cama
