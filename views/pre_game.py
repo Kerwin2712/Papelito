@@ -13,18 +13,18 @@ def pre_game_view(contenedor_principal, navegacion):
     pre_game_frame = ttk.Frame(contenedor_principal, padding=10)
     pre_game_frame.pack(expand=True)
     #labels
-    ttk.Label(pre_game_frame, text="Preparacion del juego").pack(pady=20)
-    ttk.Separator(pre_game_frame).pack(fill="x", pady=10)
-    ttk.Label(pre_game_frame, text="Jugador").pack(pady=5)
-    ttk.Entry(pre_game_frame, textvariable=jugador).pack(pady=5)
+    ttk.Label(pre_game_frame, text="Preparacion del juego").grid(row=0, column=0, columnspan=3, pady=20)
+    ttk.Separator(pre_game_frame).grid(row=1, column=0, columnspan=3, pady=10, sticky="ew")
+    ttk.Label(pre_game_frame, text="Jugador").grid(row=2, column=0, padx=5)
+    ttk.Entry(pre_game_frame, textvariable=jugador).grid(row=2, column=1, padx=5)
+    ttk.Button(pre_game_frame, text="Agregar", command=lambda: add_player(players_frame, jugador, jugadores)).grid(row=2, column=2, padx=5)
     #frame de jugadores
     players_frame = ttk.Frame(pre_game_frame)
-    players_frame.pack(pady=5)
+    players_frame.grid(row=3, column=0, columnspan=3, pady=5)
     #frame de botones
     botones_frame = ttk.Frame(pre_game_frame)
-    botones_frame.pack(pady=5)
+    botones_frame.grid(row=4, column=0, columnspan=3, pady=5)
     #botones
-    ttk.Button(botones_frame, width=30, text="Agregar", command=lambda: add_player(players_frame, jugador, jugadores)).pack(pady=5)
     ttk.Button(botones_frame, width=30, text="Continuar", command=lambda: continuar(jugadores, navegacion)).pack(pady=10)
     ttk.Button(botones_frame, width=30, text="Volver", command=lambda: navegacion("dashboard")).pack(pady=10)
     return pre_game_frame
