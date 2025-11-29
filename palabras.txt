@@ -1,0 +1,6 @@
+casa
+carro
+cama
+manzana
+pera
+zanahoria

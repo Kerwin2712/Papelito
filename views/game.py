@@ -53,7 +53,11 @@ def timer_content(timer_frame, time, activo, game_frame, jugador, jugadores, pal
     for widget in timer_frame.winfo_children():
         widget.destroy()
     if len(palabras) == 0:
-        siguiente_ronda(timer_frame, game_frame, jugador, jugadores, palabras, palabras_jugadas, ronda, stats_frame)
+        for widget in game_frame.winfo_children():
+            widget.destroy()
+        ttk.Label(game_frame, text="Ronda Finalizada", style="TLabel", font=("Arial", 23), foreground="white").pack(expand=True)
+        ttk.Label(game_frame, text="Presione el Boton para continuar", style="TLabel", font=("Arial", 15), foreground="white").pack(expand=True)
+        ttk.Button(game_frame, text="Continuar", command=lambda: siguiente_ronda(timer_frame, game_frame, jugador, jugadores, palabras, palabras_jugadas, ronda, stats_frame)).pack(side="bottom", pady=10)
         return
     if not activo:
         ttk.Label(timer_frame, text=time, style="TLabel", font=("Arial", 23), foreground="yellow", anchor="center").pack(pady=10)

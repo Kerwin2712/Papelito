@@ -6,7 +6,6 @@ def words_view(contenedor_principal, navegacion):
     jugadores = players_get()
     palabras = []
     words_content(contenedor_principal, palabras, jugadores[0], jugadores, navegacion)
-          
 
 def words_content(contenedor_principal, palabras, jugador, jugadores, navegacion):
     #Limpiar pantalla
