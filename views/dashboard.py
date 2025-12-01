@@ -15,7 +15,6 @@ def dashboard_view(contenedor_principal, navegacion):
     ttk.Button(dashboard_frame, width=30, text="Configurar palabras", command=lambda: navegacion("words")).pack(pady=10, fill="x")
     ttk.Button(dashboard_frame, width=30, text="Preferences", command=lambda: navegacion("preferences")).pack(pady=10, fill="x")
     ttk.Button(dashboard_frame, width=30, text="Salir", command=salir).pack(pady=10, fill="x")
-    
 
     return dashboard_frame
 
