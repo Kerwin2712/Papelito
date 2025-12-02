@@ -29,6 +29,24 @@ def words_content(contenedor_principal, palabras, jugador, jugadores, navegacion
     #frame de palabras
     words_list_frame = ttk.Frame(words_frame)
     words_list_frame.pack(pady=5)
+
+    canvas = ttk.Canvas(words_list_frame, width=200, height=200)
+    scrollbar = ttk.Scrollbar(words_list_frame, orient="vertical", command=canvas.yview)
+    words_list = ttk.Frame(canvas)
+
+    words_list.bind(
+        "<Configure>",
+        lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")
+        )
+    )
+
+    canvas.create_window((0, 0), window=words_list, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
     #frame de botones
     button_frame = ttk.Frame(words_frame, padding=10)
     button_frame.pack(pady=5)
@@ -38,25 +56,27 @@ def words_content(contenedor_principal, palabras, jugador, jugadores, navegacion
     else:
         next_button = ttk.Button(button_frame, text="Jugar", width=30, command=lambda: guardar_palabras(palabras) or navegacion("game"))
 
-    ttk.Button(form_frame, text="Agregar", command=lambda: add_word(palabra, mis_palabras, palabras, words_list_frame, next_button)).grid(row=1, column=1, padx=5)
+    ttk.Button(form_frame, text="Agregar", command=lambda: add_word(palabra, mis_palabras, palabras, words_list, next_button)).grid(row=1, column=1, padx=5)
 
     ttk.Button(button_frame, text="Volver", width=30, command=lambda: navegacion("dashboard")).pack(pady=5)  
 
 
-def add_word(palabra, mis_palabras, palabras, words_list_frame, next_button):
+def add_word(palabra, mis_palabras, palabras, words_list, next_button):
     limit = int(get_config()["cantidad_de_palabras"])
     if len(mis_palabras) >= limit:
         messagebox.showerror("Error", "Se han alcanzado el maximo de palabras")
         palabra.set("")
         return
     #Limpiar pantalla
-    for widget in words_list_frame.winfo_children():
+    for widget in words_list.winfo_children():
         widget.destroy()
     #agregar palabra
     mis_palabras.append(palabra.get())
     palabras.append(palabra.get())
+    n = 1
     for word in mis_palabras:
-        ttk.Label(words_list_frame, text=word).pack(pady=5)
+        ttk.Label(words_list, text=f"{n}. {word}").pack(pady=5)
+        n += 1
     palabra.set("")
 
     if len(mis_palabras) == limit:

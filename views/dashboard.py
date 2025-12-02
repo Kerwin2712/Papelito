@@ -6,7 +6,7 @@ def dashboard_view(contenedor_principal, navegacion):
     dashboard_frame = ttk.Frame(contenedor_principal, padding=10)
     dashboard_frame.pack(expand=True)
     
-    ttk.Label(dashboard_frame, text="Bienvenido a Papelito").pack(pady=20)
+    ttk.Label(dashboard_frame, text="Bienvenido a Papelito", font=("Helvetica", 14, "bold")).pack(pady=20)
     
     ttk.Separator(dashboard_frame).pack(fill="x", pady=10)
     
